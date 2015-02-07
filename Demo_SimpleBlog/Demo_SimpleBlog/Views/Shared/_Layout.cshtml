@@ -1,16 +1,27 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
 <!DOCTYPE html>
 
 <html>
-<head>
-    <title></title>
-</head>
-<body>
-    <header>Simple Blog</header>
-    @RenderBody()
-</body>
+    <head>
+        <title>@ViewBag.Title - SimpleBlog</title>
+    </head>
+    <body>
+        <header>
+            <h1>
+                <a href="@Url.RouteUrl("Home")">Simple Blog </a>
+            </h1>
+            <a href="@Url.RouteUrl("Login")">Login</a>
+        </header>
+
+        @RenderBody()
+        
+        <footer>
+            &copy; @DateTime.Now - VenCode
+        </footer>
+        
+        @RenderSection("Scripts", false)
+    </body>
 </html>

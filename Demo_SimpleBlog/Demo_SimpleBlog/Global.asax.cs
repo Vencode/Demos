@@ -19,6 +19,17 @@ namespace Demo_SimpleBlog
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             GlobalConfiguration.Configuration.EnsureInitialized(); 
+            Database.Configure();
+        }
+
+        protected void Application_BeginRequest()
+        {
+            Database.OpenSession();
+        }
+
+        protected void Application_EndRequest()
+        {
+            Database.CloseSession();
         }
     }
 }

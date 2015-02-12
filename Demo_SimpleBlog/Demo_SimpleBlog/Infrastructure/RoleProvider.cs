@@ -1,4 +1,6 @@
-﻿namespace Demo_SimpleBlog.Infrastructure
+﻿using System.Linq;
+
+namespace Demo_SimpleBlog.Infrastructure
 {
     public class RoleProvider : System.Web.Security.RoleProvider
     {
@@ -9,7 +11,7 @@
 
         public override string[] GetRolesForUser(string username)
         {
-            return username == "kenjou" ? new[] { "Admin" } : new string[] { };
+            return Auth.User.Roles.Select(role => role.Name).ToArray();
         }
 
         public override void CreateRole(string roleName)

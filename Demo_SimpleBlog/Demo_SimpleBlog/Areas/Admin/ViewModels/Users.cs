@@ -4,6 +4,15 @@ using Demo_SimpleBlog.Models;
 
 namespace Demo_SimpleBlog.Areas.Admin.ViewModels
 {
+    public class RoleCheckBox
+    {
+        public int Id { get; set; }
+        
+        public bool IsChecked { get; set; }
+
+        public string Name { get; set; }
+    }
+
     public class UsersIndex
     {
         public IEnumerable<User> Users { get; set; }
@@ -19,6 +28,9 @@ namespace Demo_SimpleBlog.Areas.Admin.ViewModels
 
         [Required, DataType(DataType.EmailAddress), MaxLength(256)]
         public string Email { get; set; }
+
+        public IList<RoleCheckBox> Roles { get; set; }
+
     }
 
     public class UsersEdit
@@ -28,6 +40,8 @@ namespace Demo_SimpleBlog.Areas.Admin.ViewModels
 
         [Required, DataType(DataType.EmailAddress), MaxLength(256)]
         public string Email { get; set; }
+
+        public IList<RoleCheckBox> Roles { get; set; }
     }
 
     public class UsersResetPassword

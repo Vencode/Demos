@@ -17,9 +17,19 @@ namespace Demo_SimpleBlog.Models
         }
 
         public virtual int Id { get; set; }
+
         public virtual string Username { get; set; }
+
         public virtual string Email { get; set; }
+
         public virtual string PasswordHash { get; set; }
+
+        public virtual IList<Role> Roles { get; set; }
+
+        public User()
+        {
+            Roles = new List<Role>();
+        }
 
         public virtual void SetPassword(string password)
         {
@@ -50,6 +60,12 @@ namespace Demo_SimpleBlog.Models
                 usr.Column("password_hash");
                 usr.NotNullable(true);
             });
+
+            Bag(rl => rl.Roles, rl =>
+            {
+                rl.Table("roles_users");
+                rl.Key(tb => tb.Column("user_id"));
+            }, tb => tb.ManyToMany(tab => tab.Column("role_id")));
         }
     }
 }

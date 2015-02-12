@@ -63,7 +63,7 @@ namespace Demo_SimpleBlog.Models
 
             Bag(rl => rl.Roles, rl =>
             {
-                rl.Table("roles_users");
+                rl.Table("role_users");
                 rl.Key(tb => tb.Column("user_id"));
             }, tb => tb.ManyToMany(tab => tab.Column("role_id")));
         }

@@ -10,8 +10,7 @@ using NHibernate.Mapping;
 
 namespace Demo_SimpleBlog.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    [SelectedTab("users")]
+    [Authorize(Roles = "Admin"), SelectedTab("users")]
     public class UsersController : Controller
     {
         // GET: Admin/Users
@@ -36,14 +35,12 @@ namespace Demo_SimpleBlog.Areas.Admin.Controllers
             });
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult New(UsersNew form)
         {
             var user = new User();
             SyncRoles(form.Roles, user.Roles);
             
-
             if (Database.Session.Query<User>().Any(usr => usr.Username == form.Username))
                 ModelState.AddModelError("Username","Username allready in user");
 
@@ -79,8 +76,7 @@ namespace Demo_SimpleBlog.Areas.Admin.Controllers
             });
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Edit(int id, UsersEdit form)
         {
             var user = Database.Session.Load<User>(id);
@@ -116,8 +112,7 @@ namespace Demo_SimpleBlog.Areas.Admin.Controllers
             });
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult ResetPassword(int id, UsersResetPassword form)
         {
             var user = Database.Session.Load<User>(id);
@@ -136,8 +131,7 @@ namespace Demo_SimpleBlog.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             var user = Database.Session.Load<User>(id);

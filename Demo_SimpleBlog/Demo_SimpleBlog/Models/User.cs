@@ -9,6 +9,13 @@ namespace Demo_SimpleBlog.Models
 {
     public class User
     {
+        private const int Workfactor = 13;
+
+        public static void FakeHash()
+        {
+            BCrypt.Net.BCrypt.HashPassword("", Workfactor);
+        }
+
         public virtual int Id { get; set; }
         public virtual string Username { get; set; }
         public virtual string Email { get; set; }
@@ -16,7 +23,12 @@ namespace Demo_SimpleBlog.Models
 
         public virtual void SetPassword(string password)
         {
-            PasswordHash = "Ignore";
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(password, Workfactor);
+        }
+
+        public virtual bool CheckPassword(string password)
+        {
+            return BCrypt.Net.BCrypt.Verify(password, PasswordHash);
         }
     }
 

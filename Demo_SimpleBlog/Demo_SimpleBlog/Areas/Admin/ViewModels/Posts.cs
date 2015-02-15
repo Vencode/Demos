@@ -27,5 +27,16 @@ namespace Demo_SimpleBlog.Areas.Admin.ViewModels
 
         [Required, DataType(DataType.MultilineText)]
         public string Content { get; set; }
+
+        public IList<TagCheckBox> Tags { get; set; } 
+    }
+
+    public class TagCheckBox
+    {
+        public int? Id { get; set; }
+
+        public string Name { get; set; }
+
+        public bool IsChecked { get; set; }
     }
 }

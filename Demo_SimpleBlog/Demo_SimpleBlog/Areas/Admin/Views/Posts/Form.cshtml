@@ -1,0 +1,44 @@
+﻿@model Demo_SimpleBlog.Areas.Admin.ViewModels.PostsForm
+           
+<h1>@(Model.IsNew ? "Create Posts" : "Update Posts")</h1>
+
+@using (Html.BeginForm("Form", "Posts"))
+{
+    if (!Model.IsNew)
+    {
+        @Html.HiddenFor(model => model.PostId)
+    }
+    
+    @Html.AntiForgeryToken()
+    
+    <div class="row">
+        <div class="col-lg-8">
+            @Html.ValidationSummary()
+            
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.Title)
+                @Html.TextBoxFor(model => model.Title, new {@class = "form-control"})
+            </div>
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.Slug)
+                @Html.TextBoxFor(model => model.Slug, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Content)
+                @Html.TextAreaFor(model => model.Content, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">Post Actions</div>
+                <div class="panel-body">
+                    <input type="submit" value="@(Model.IsNew ? "Publish Post" : "Update Post")" class="btn btn-success btn-sm"/>
+                    <a href="@Url.Action("Index")">or Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}

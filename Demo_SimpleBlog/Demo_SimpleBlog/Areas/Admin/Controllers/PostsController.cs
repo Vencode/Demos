@@ -20,10 +20,18 @@ namespace Demo_SimpleBlog.Areas.Admin.Controllers
         {
             var totalPostCount = Database.Session.Query<Post>().Count();
 
-            var currentPostPage = Database.Session.Query<Post>()
-                .OrderByDescending(pos => pos.CreatedAt)
-                .Skip((page - 1)*PostsPerPage)
+            var baseQuery = Database.Session.Query<Post>().OrderByDescending(pos => pos.CreatedAt);
+
+            var postIds = baseQuery
+                .Skip((page - 1) * PostsPerPage)
                 .Take(PostsPerPage)
+                .Select(pos => pos.Id)
+                .ToList();
+
+            var currentPostPage = baseQuery
+                .Where(pos => postIds.Contains(pos.Id))
+                .Fetch(pos => pos.Tags)
+                .Fetch(pos => pos.User)
                 .ToList();
 
             return View(new PostsIndex
@@ -157,7 +165,6 @@ namespace Demo_SimpleBlog.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
-
 
         public IEnumerable<Tag> ReconsileTags(IEnumerable<TagCheckBox> tags)
         {

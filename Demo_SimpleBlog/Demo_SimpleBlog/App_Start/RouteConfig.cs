@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 using Demo_SimpleBlog.Controllers;
 
@@ -15,6 +11,12 @@ namespace Demo_SimpleBlog
             var namespaces = new[] {typeof (PostsController).Namespace};
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            routes.MapRoute("Tag", "tag/{id}-{slug}", new { controller = "Posts", action = "Tag" }, namespaces);
+            routes.MapRoute("TagForReal", "tag/{idAndSlug}", new { controller = "Posts", action = "Tag" }, namespaces);
+
+            routes.MapRoute("Post", "post/{id}-{slug}", new {controller = "Posts", action = "Show"}, namespaces);
+            routes.MapRoute("PostForReal", "post/{idAndSlug}", new {controller = "Posts", action = "Show"}, namespaces);
 
             routes.MapRoute("Login", "login", new { controller = "Auth", action = "Login" }, namespaces);
 

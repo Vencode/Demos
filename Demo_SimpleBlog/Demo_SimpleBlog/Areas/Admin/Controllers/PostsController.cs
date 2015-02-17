@@ -30,7 +30,7 @@ namespace Demo_SimpleBlog.Areas.Admin.Controllers
 
             var currentPostPage = baseQuery
                 .Where(pos => postIds.Contains(pos.Id))
-                .Fetch(pos => pos.Tags)
+                .FetchMany(pos => pos.Tags)
                 .Fetch(pos => pos.User)
                 .ToList();
 

@@ -54,7 +54,7 @@ namespace Demo_SimpleBlog.Areas.Admin.Controllers
             });
         }
 
-        [HttpPost, ValidateAntiForgeryToken, ValidateInput(false)]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Form(PostsForm form)
         {
             form.IsNew = form.PostId != null;

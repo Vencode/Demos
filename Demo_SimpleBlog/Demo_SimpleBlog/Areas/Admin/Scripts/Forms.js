@@ -1,5 +1,5 @@
 ﻿$(Document).ready(function() {
-    $("a[datafld-post]").click(function(e) {
+    $("a[data-post]").click(function(e) {
         e.preventDefault();
 
         var $this = $(this);
@@ -9,11 +9,11 @@
             return;
 
         var antiForgeryToken = $("#anti-forgery-form input");
-        var antiForgeryInput = $("<input type='hidden'>").attr("name", antiForgeryToken.attr("name")) .val(antiForgeryToken.val());
+        var antiForgeryInput = $("<input type='hidden'>").attr("name", antiForgeryToken.attr("name")).val(antiForgeryToken.val());
 
         $("<form>")
             .attr("method", "post")
-            .attr("action", this.attr("href"))
+            .attr("action", $this.attr("href"))
             .append(antiForgeryInput)
             .appendTo(document.body)
             .submit();
